@@ -5,7 +5,6 @@ import WarningIcon from "../../img/warning.svg";
 function InputsForm(props) {
   return (
     <InputFormStyled as="div" isError={props.isError.error}>
-    {/* <InputFormStyled as="div"> */}
       <input
         type={props.type}
         id={props.inputId}
