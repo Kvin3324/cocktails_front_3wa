@@ -11,7 +11,7 @@ function ModalCocktail(props) {
   const [data, setData] = React.useState({
     counter: 0,
     ingredientsArr: [],
-    recipeStepsArr: ['cuir', 'boire', 'vomir']
+    recipeStepsArr: []
   });
 
   function addInputIngredient() {
@@ -28,11 +28,14 @@ function ModalCocktail(props) {
     setData(newState);
   }
 
-  // function recipeSteps() {
-  //   const newState = { ...data};
+  function recipeSteps() {
+    const newState = { ...data};
 
-  //   newState.recipeStepsArr.push()
-  // }
+    const stepsRecipe = refInputRecipe.current.value.split(/[ ,]+/);
+
+    newState.recipeStepsArr = stepsRecipe;
+    setData(newState)
+  }
 
   async function createCocktail() {
     try {
@@ -44,8 +47,8 @@ function ModalCocktail(props) {
         recipe: data.recipeStepsArr,
       });
 
-      props.cancelAction();
       props.fetchCocktails();
+      props.cancelAction();
     } catch (error) {
       setData({
         error: true,
@@ -65,7 +68,6 @@ function ModalCocktail(props) {
                 &times;
               </span>
             </div>
-            <label htmlFor="imgCocktail">Ajouter une image (lien):</label>
             <input
               type="text"
               id="imgCocktail"
@@ -73,9 +75,10 @@ function ModalCocktail(props) {
               title=" "
               accept=".jpg, .jpeg, .png"
               ref={refInputImg}
+              placeholder="Ajouter une image (lien)"
             />
             <input type="text" placeholder="Nom" ref={refInputTitle} />
-            <textarea placeholder="Descriptionn" ref={refInputDesc}></textarea>
+            <textarea placeholder="Description" ref={refInputDesc}></textarea>
             <div className="modal-content__ingredients">
               <h4>Ingrédients</h4>
               <ul className="pl-0">
@@ -93,16 +96,17 @@ function ModalCocktail(props) {
                           addIngredient(refInputIngredients.current.value)
                         }
                       ></input>
-                      ;
                     </li>
                   );
                 })}
               </ul>
             </div>
             <div className="modal-content__recipe">
+              <h4>Recette</h4>
               <textarea
                 placeholder="Quelle est la recette ?"
                 ref={refInputRecipe}
+                onBlur={() => recipeSteps()}
               ></textarea>
             </div>
             <div className="modal-footer">
