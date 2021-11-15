@@ -13,6 +13,7 @@ function App() {
   const GlobalStyle = createGlobalStyle`
   body {
     background-color: white;
+    font-family: ${props => props.theme.fontFamilyText};
   };
   `
 
