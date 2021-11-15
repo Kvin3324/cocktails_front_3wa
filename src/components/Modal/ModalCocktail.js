@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import ModalCocktailStyled from "../../style/ModalCocktailStyled.style";
+import { toast } from "react-toastify";
 
 function ModalCocktail(props) {
   const refInputImg = React.useRef(null);
@@ -31,13 +32,28 @@ function ModalCocktail(props) {
   function recipeSteps() {
     const newState = { ...data};
 
-    const stepsRecipe = refInputRecipe.current.value.split(/[ ,]+/);
+    const stepsRecipe = refInputRecipe.current.value.split(/[.,]+/);
 
     newState.recipeStepsArr = stepsRecipe;
     setData(newState)
   }
 
   async function createCocktail() {
+    if (!refInputTitle.current.value) {
+      toast.error('Veuillez ajouter un titre !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+
+
     try {
       await axios.post("http://localhost:3000/cocktails", {
         name: refInputTitle.current.value,
