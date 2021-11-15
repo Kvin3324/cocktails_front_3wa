@@ -15,6 +15,15 @@ const CardStyled = styled(GlobalContainer)`
     width: 150%;
     position: relative;
 
+    .card-product_edit-icon {
+      width: 15px!important;
+      height: 15px!important;
+      position: absolute;
+      left: 90%;
+      z-index: 2;
+      top: 4%;
+    }
+
     img {
       height: 100%;
       width: 120px;
