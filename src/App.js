@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import variables  from './variables';
 import SignUpSpace from './components/SignupSpace';
 import Cocktails from './components/Cocktails/Cocktails';
-
+import AboutCocktail from './components/Cocktails/AboutCocktail';
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -26,6 +26,7 @@ function App() {
             <Route exact path='/' element={<SigninSpace />}></Route>
             <Route exact path='/inscription' element={<SignUpSpace />}></Route>
             <Route exact path='/cocktails' element={<Cocktails />}></Route>
+            <Route exact path='/cocktails/:id' element={<AboutCocktail></AboutCocktail>}></Route>
           </Routes>
           </>
         </ThemeProvider>
