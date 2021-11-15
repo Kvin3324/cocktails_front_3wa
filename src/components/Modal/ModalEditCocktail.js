@@ -37,14 +37,6 @@ function ModalEditCocktail(props) {
   function changeInput(e) {
     const newState = { ...dataToSend };
 
-    // if (e.target.getAttribute("data-name") === 'ingredients') {
-    if (e.target.id === 'idIngredients') {
-      // console.log('c ingredients');
-      // console.log(newState[e.target.getAttribute("data-name", 'ingredients')]  );
-      // console.log(newState['ingredients']);
-      newState['ingredients'] = data.ingredientsArr;
-    }
-
     newState[e.target.getAttribute("data-name")] = e.target.value;
     setDataToSend(newState);
   }
