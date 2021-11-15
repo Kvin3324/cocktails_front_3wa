@@ -4,9 +4,12 @@ import Card from "../Card/Card";
 import Header from "../Header/Header";
 import CocktailsStyled from "../../style/CocktailsStyled.style";
 import Modal from "../Modal/Modal";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import ModalCocktail from "../Modal/ModalCocktail";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ModalEditCocktail from "../Modal/ModalEditCocktail";
 
 function Cocktails(props) {
   const [data, setData] = React.useState({
@@ -15,6 +18,7 @@ function Cocktails(props) {
     errorMessage: "",
     isLogout: false,
     isModalAddCocktail: false,
+    isModalEditCocktail: false,
     modalLogout: {
       title: "Déconnexion",
       content: "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -22,7 +26,6 @@ function Cocktails(props) {
       btnConfirm: "Se déconnecter",
     },
   });
-
   const [redirect, setRedirect] = React.useState(false);
 
   React.useEffect(() => {
@@ -34,10 +37,10 @@ function Cocktails(props) {
 
     try {
       const { data } = await axios.get("http://localhost:3000/cocktails");
-      console.log(data);
       newState.cocktails = data;
+      newState.isModalAddCocktail = false;
 
-      props.dispatch({type: 'ADD_COCKTAILS', cocktails: newState.cocktails});
+      props.dispatch({ type: "ADD_COCKTAILS", cocktails: newState.cocktails });
 
       setData(newState);
     } catch (error) {
@@ -75,12 +78,45 @@ function Cocktails(props) {
     setData(newState);
   }
 
+  async function editCard(e, cardId) {
+    e.preventDefault();
+    displayEditModalCocktail();
+
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/cocktails/${cardId}`
+      );
+      props.dispatch({ type: "ADD_COCKTAIL", cocktail: data });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function displayEditModalCocktail() {
+    const newState = { ...data };
+
+    newState.isModalEditCocktail = !newState.isModalEditCocktail;
+
+    setData(newState);
+  }
+
   async function deletedCard(e, cocktailId) {
     e.preventDefault();
 
     try {
       await axios.delete(`http://localhost:3000/cocktails/${cocktailId}`);
+
       getCocktails();
+
+      toast("🍹 Cocktail supprimé!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       setData({
         error: true,
@@ -88,7 +124,6 @@ function Cocktails(props) {
       });
     }
   }
-
 
   if (redirect) return <Navigate to="/"></Navigate>;
 
@@ -109,6 +144,11 @@ function Cocktails(props) {
             fetchCocktails={() => getCocktails()}
           ></ModalCocktail>
         )}
+        {data.isModalEditCocktail && (
+          <ModalEditCocktail
+            cancelAction={() => displayEditModalCocktail()}
+          ></ModalEditCocktail>
+        )}
         <CocktailsStyled className="container-d-fluid col-12">
           <div className="section__title">
             <h2>Carte des cocktails</h2>
@@ -128,6 +168,7 @@ function Cocktails(props) {
                     card={card}
                     key={index}
                     deleteCard={(e) => deletedCard(e, card._id)}
+                    editCard={(e) => editCard(e, card._id)}
                   ></Card>
                 );
               })}
@@ -138,8 +179,6 @@ function Cocktails(props) {
   );
 }
 
-const mapStateToProps=(state)=>({ cocktail: state.cocktails })
+const mapStateToProps = (state) => ({ cocktail: state.cocktails });
 
 export default connect(mapStateToProps, null)(Cocktails);
-
-// export default Cocktails;
