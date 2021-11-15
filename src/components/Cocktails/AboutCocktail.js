@@ -46,7 +46,7 @@ function AboutCocktail(props) {
                 <ul>
                 {props.aboutCocktail.ingredients.map((ingredient, index) => {
                   return (
-                      <li>
+                      <li key={index}>
                         <strong className="" key={index}>
                           {ingredient}
                         </strong>
