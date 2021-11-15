@@ -6,8 +6,9 @@ import CocktailsStyled from "../../style/CocktailsStyled.style";
 import Modal from "../Modal/Modal";
 import { Navigate } from "react-router-dom";
 import ModalCocktail from "../Modal/ModalCocktail";
+import {connect} from 'react-redux'
 
-function Cocktails() {
+function Cocktails(props) {
   const [data, setData] = React.useState({
     cocktails: [],
     error: {},
@@ -35,6 +36,8 @@ function Cocktails() {
       const { data } = await axios.get("http://localhost:3000/cocktails");
       console.log(data);
       newState.cocktails = data;
+
+      props.dispatch({type: 'ADD_COCKTAILS', cocktails: newState.cocktails});
 
       setData(newState);
     } catch (error) {
@@ -72,6 +75,21 @@ function Cocktails() {
     setData(newState);
   }
 
+  async function deletedCard(e, cocktailId) {
+    e.preventDefault();
+
+    try {
+      await axios.delete(`http://localhost:3000/cocktails/${cocktailId}`);
+      getCocktails();
+    } catch (error) {
+      setData({
+        error: true,
+        errorMessage: error.message,
+      });
+    }
+  }
+
+
   if (redirect) return <Navigate to="/"></Navigate>;
 
   return (
@@ -105,7 +123,13 @@ function Cocktails() {
           <div className="row">
             {data.cocktails !== undefined &&
               data.cocktails.map((card, index) => {
-                return <Card card={card} key={index}></Card>;
+                return (
+                  <Card
+                    card={card}
+                    key={index}
+                    deleteCard={(e) => deletedCard(e, card._id)}
+                  ></Card>
+                );
               })}
           </div>
         </CocktailsStyled>
@@ -114,4 +138,8 @@ function Cocktails() {
   );
 }
 
-export default Cocktails;
+const mapStateToProps=(state)=>({ cocktail: state.cocktails })
+
+export default connect(mapStateToProps, null)(Cocktails);
+
+// export default Cocktails;
