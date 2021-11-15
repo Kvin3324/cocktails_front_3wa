@@ -19,7 +19,6 @@ function cocktailReducer(state = store.cocktailsData, action) {
     return newState;
   }
 
-  console.log(action.type);
   if (action.type === 'ADD_COCKTAIL') {
     newState.cocktail = action.cocktail;
 
