@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import Header from "../Header/Header";
 import CocktailsStyled from "../../style/CocktailsStyled.style";
 import Modal from "../Modal/Modal";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ModalCocktail from "../Modal/ModalCocktail";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ function Cocktails(props) {
 
   React.useEffect(() => {
     getCocktails();
-  }, []);
+  }, []); //eslint-disable-line
 
   async function getCocktails() {
     const newState = { ...data };
