@@ -8,6 +8,9 @@ import variables  from './variables';
 import SignUpSpace from './components/SignupSpace';
 import Cocktails from './components/Cocktails/Cocktails';
 import AboutCocktail from './components/Cocktails/AboutCocktail';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -22,6 +25,7 @@ function App() {
       <BrowserRouter>
       <ThemeProvider theme={{ ...variables}}>
         <GlobalStyle></GlobalStyle>
+        <ToastContainer />
           <>
           <Routes>
             <Route exact path='/' element={<SigninSpace />}></Route>
