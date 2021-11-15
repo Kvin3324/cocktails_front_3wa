@@ -46,9 +46,7 @@ function ModalCocktail(props) {
         ingredients: data.ingredientsArr,
         recipe: data.recipeStepsArr,
       });
-
       props.fetchCocktails();
-      props.cancelAction();
     } catch (error) {
       setData({
         error: true,
@@ -77,7 +75,7 @@ function ModalCocktail(props) {
               ref={refInputImg}
               placeholder="Ajouter une image (lien)"
             />
-            <input type="text" placeholder="Nom" ref={refInputTitle} />
+            <input type="text" placeholder="Nom" ref={refInputTitle} required />
             <textarea placeholder="Description" ref={refInputDesc}></textarea>
             <div className="modal-content__ingredients">
               <h4>Ingrédients</h4>
@@ -87,14 +85,14 @@ function ModalCocktail(props) {
                 </button>
                 {Array.from(Array(data.counter)).map((ingredient, index) => {
                   return (
-                    <li>
+                    <li key={index}>
                       <input
-                        key={index}
                         type="text"
                         ref={refInputIngredients}
                         onBlur={() =>
                           addIngredient(refInputIngredients.current.value)
                         }
+                        required
                       ></input>
                     </li>
                   );
