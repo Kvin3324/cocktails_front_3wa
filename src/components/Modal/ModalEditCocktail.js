@@ -58,7 +58,8 @@ function ModalEditCocktail(props) {
   function recipeSteps(e) {
     const newState = { ...data};
 
-    const stepsRecipe = e.target.value.split(/[.,]+/);
+    const stepsRecipe = e.target.value.split(/,|\./);
+
 
     newState.recipeStepsArr = stepsRecipe;
     setData(newState)
