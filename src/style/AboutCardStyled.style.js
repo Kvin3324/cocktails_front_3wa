@@ -3,7 +3,6 @@ import GlobalContainer from '../utils/GlobalContainer';
 
 const AboutCardStyled = styled(GlobalContainer)`
   .card {
-    overflow: hidden;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -16,8 +15,16 @@ const AboutCardStyled = styled(GlobalContainer)`
 
     img {
       height: 100%;
-      width: 50%;
+      width: inherit;
       object-fit: cover;
+    }
+  }
+
+  @media screen and (min-width: 1150px) {
+    .card {
+      img {
+        width: 50%;
+      }
     }
   }
 `;
