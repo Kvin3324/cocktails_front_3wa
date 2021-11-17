@@ -78,7 +78,6 @@ const ModalCocktailStyled = styled.div`
     justify-content: space-around;
     button {
       font-size: 1.2em;
-      width: 30%;
     }
   }
 
@@ -94,6 +93,14 @@ const ModalCocktailStyled = styled.div`
     color: black;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  @media screen and (min-width: 1150px) {
+    .modal-footer {
+      button {
+        width: 40%;
+      }
+    }
   }
 `;
 

@@ -15,6 +15,15 @@ const CocktailsStyled = styled(GlobalContainer)`
     border-radius: 5px;
   }
 }
+
+@media screen and (max-width: 766px) {
+  .section__title {
+    flex-direction: column;
+    &--btn {
+      width: 50%;
+    }
+  }
+}
 `;
 
 export default CocktailsStyled
