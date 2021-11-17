@@ -20,6 +20,10 @@ const HeaderStyled = styled.header`
     border-radius: 5px;
   }
 }
+
+@media screen and (min-width: 1100px) {
+  margin-bottom: 4%;
+}
 `;
 
 export default HeaderStyled;
