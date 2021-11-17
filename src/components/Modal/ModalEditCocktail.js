@@ -38,6 +38,7 @@ function ModalEditCocktail(props) {
     const newState = { ...dataToSend };
 
     newState[e.target.getAttribute("data-name")] = e.target.value;
+
     setDataToSend(newState);
   }
 
@@ -50,19 +51,21 @@ function ModalEditCocktail(props) {
 
   function addIngredient(e) {
     const newStateData = { ...data };
+    const newState = { ...dataToSend };
 
     newStateData.ingredientsArr.push(e.target.value);
+    newState[e.target.getAttribute("data-name")] = [...props.aboutCocktail.ingredients, ...newStateData.ingredientsArr];
+
     setData(newStateData);
+    setDataToSend(newState);
   }
 
   function recipeSteps(e) {
-    const newState = { ...data};
+    const newState = { ...dataToSend };
 
-    const stepsRecipe = e.target.value.split(/,|\./);
+    newState[e.target.getAttribute("data-name")] = e.target.value.split(".")
 
-
-    newState.recipeStepsArr = stepsRecipe;
-    setData(newState)
+    setDataToSend(newState);
   }
 
   return (
@@ -112,7 +115,6 @@ function ModalEditCocktail(props) {
                           type="text"
                           onBlur={addIngredient}
                           data-name="ingredients"
-                          onChange={changeInput}
                           defaultValue={ingredient}
                           required
                         ></input>
@@ -128,7 +130,6 @@ function ModalEditCocktail(props) {
                         type="text"
                         onBlur={addIngredient}
                         data-name="ingredients"
-                        onChange={changeInput}
                         required
                       ></input>
                     </li>
@@ -140,10 +141,10 @@ function ModalEditCocktail(props) {
               <h4>Recette</h4>
               <textarea
                 placeholder="Quelle est la recette ?"
-                onBlur={recipeSteps}
                 data-name="recipe"
                 defaultValue={props.aboutCocktail.recipe}
-                onChange={changeInput}
+                onChange={recipeSteps}
+                id="inputRecipe"
               ></textarea>
             </div>
             <div className="modal-footer">
