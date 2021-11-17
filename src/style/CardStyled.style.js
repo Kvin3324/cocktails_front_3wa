@@ -36,14 +36,15 @@ const CardStyled = styled(GlobalContainer)`
     h3 {
       font-size: 10px;
       font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 0;
     }
 
     p {
       font-size: 12px;
       line-height: 1.4;
       opacity: .7;
-      margin-bottom: 0;
-      margin-top: 8px;
+      margin: 0;
     }
 
   .card-product-infos {
@@ -71,9 +72,10 @@ const CardStyled = styled(GlobalContainer)`
     width: 41vw;
   }
 
-  @media screen and (min-width: 1150) {
-  .card-product {
-    width: 100%;
+    @media screen and (min-width: 1150) {
+    .card-product {
+      width: 100%;
+    }
   }
 }
 `;
