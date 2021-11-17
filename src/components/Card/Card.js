@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Card(props) {
   return (
     <React.Fragment>
-      <CardStyled as="div" className="mb-4 ml-2 col-4">
+      <CardStyled as="div" className="mb-4 ml-2 col-xs-12 col-sm-4 col-md-4 col-lg-5">
         <Link
           to={`/cocktails/${props.card._id}`}
           onClick={(e) => e.stopPropagation()}
