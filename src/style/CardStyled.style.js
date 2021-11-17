@@ -3,25 +3,22 @@ import GlobalContainer from '../utils/GlobalContainer';
 
 const CardStyled = styled(GlobalContainer)`
   div {
-    overflow: hidden;
     height: 150px;
     background: ${props => props.theme.colorLola};
     border: 1px solid ${props => props.theme.colorLola};
     border-radius: 10px;
-    /* box-shadow: 0 0 15px rgba(0,0,0,0.2); */
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 150%;
     position: relative;
 
     .card-product_edit-icon {
       width: 15px!important;
       height: 15px!important;
       position: absolute;
-      left: 90%;
+      left: 88%;
       z-index: 2;
-      top: 4%;
+      top: 5%;
     }
 
     img {
@@ -68,6 +65,17 @@ const CardStyled = styled(GlobalContainer)`
     text-decoration: none;
     color: black;
   }
+
+  @media screen and (min-width: 768px) and (max-width: 1062px) {
+  .card-product {
+    width: 41vw;
+  }
+
+  @media screen and (min-width: 1150) {
+  .card-product {
+    width: 100%;
+  }
+}
 `;
 
 export default CardStyled;
