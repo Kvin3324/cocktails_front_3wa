@@ -149,12 +149,6 @@ function SigninSpace(props) {
                 inputCheckError={userAuth}
                 isError={data.error.inputPswd ? data.error.inputPswd : ""}
               ></InputsForm>
-              {/* <div className="form--connexion--reset--pswd">
-                <p>
-                  J'ai oublié mon mot de passe.{" "}
-                  <Link to={"/forgot_password_form"}>Réinitialiser</Link>
-                </p>
-              </div> */}
               <div className="form--connexion--btn">
                 <input
                   type="submit"
