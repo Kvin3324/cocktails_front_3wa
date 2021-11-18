@@ -38,6 +38,11 @@ git clone
 npm i / install
 ```
 
+## Lancer l'app
+```
+npm run start
+```
+
 ## API
 https://github.com/Kvin3324/cocktails_back_3wa
 
