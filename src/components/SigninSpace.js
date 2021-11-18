@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link, Navigate } from "react-router-dom";
 import SigninSpaceStyled from "../style/SigninSpaceStyled.style";
 import InputsForm from "../components/InputsForm/InputsForm";
-import bcImg from "../img/bc_desktop.svg";
 
 function SigninSpace(props) {
 
@@ -26,10 +25,6 @@ function SigninSpace(props) {
     };
 
     arrInputId.forEach(element => (newState.error[element] = { ...obj }));
-
-    if (window.matchMedia("screen and (min-width: 1000px)").matches) {
-      document.querySelector("body").style = `background-image: url(${bcImg})`;
-    }
 
     return setData(newState);
   }, []); //eslint-disable-line

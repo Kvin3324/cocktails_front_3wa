@@ -5,7 +5,6 @@ import axios from 'axios';
 import LoaderSvg from "../img/loader.svg";
 import SignUpSpaceStyled from "../style/SignupSpaceStyled.style";
 import InputsForm from "../components/InputsForm/InputsForm";
-import bcImg from "../img/bc_desktop.svg";
 
 function SignUpSpace() {
   const refInputPseudo = React.useRef(null);
@@ -36,10 +35,6 @@ function SignUpSpace() {
     };
 
     arrInputId.forEach(element => (newState.error[element] = { ...obj }));
-
-    if (window.matchMedia("screen and (min-width: 1000px)").matches) {
-      document.querySelector("body").style = `background-image: url(${bcImg})`;
-    }
 
     return setData(newState);
   }, []); //eslint-disable-line
