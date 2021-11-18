@@ -155,7 +155,6 @@ function SignUpSpace() {
       <SignUpSpaceStyled
         as="form"
         btnDisabled={data.btnDisabled}
-        onSubmit={fetchUserData}
       >
         <div className="form--inscription">
           <div className="form--inscription--title">
@@ -196,7 +195,7 @@ function SignUpSpace() {
             isError={data.error.inputCheckPswd ? data.error.inputCheckPswd : ""}
           ></InputsForm>
           <div className="form--inscription--btn">
-            <input type="submit" disabled={data.btnDisabled} value="Inscription"></input>
+            <input type="submit" disabled={data.btnDisabled} value="Inscription" onClick={fetchUserData}></input>
           </div>
           <div className="form--inscription--link">
             <p>J'ai déjà un compte</p>
