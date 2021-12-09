@@ -11,8 +11,8 @@ function CreateOrder(props) {
   const [data, setData] = React.useState({
     cocktails: [],
     commandData: {
-      usernameOrder: '',
-      cocktails: []
+      usernameOrder: "",
+      cocktails: [],
     },
   });
 
@@ -20,21 +20,33 @@ function CreateOrder(props) {
 
   React.useEffect(() => {
     getCocktails();
-  }, []) //eslint-disable-line
+  }, []); //eslint-disable-line
 
   function changeInput(e, cocktail) {
     const newState = { ...data };
+    const cocktailIndex = newState.commandData.cocktails.findIndex(
+      (el) => el.cocktailName === cocktail.name
+    );
 
     if (e.target.getAttribute("data-name") === "usernameOrder") {
-      newState.commandData.usernameOder = e.target.value;
+      newState.commandData.usernameOrder = e.target.value;
+      return setData(newState);
     }
 
-    if (cocktail) {
+    if (cocktailIndex > -1) {
+      newState.commandData.cocktails.splice(cocktailIndex, 1);
       newState.commandData.cocktails.push({
         cocktailName: cocktail.name,
-        quantity: e.target.value
-      })
+        quantity: e.target.value,
+      });
+
+      return setData(newState);
     }
+
+    newState.commandData.cocktails.push({
+      cocktailName: cocktail.name,
+      quantity: e.target.value,
+    });
 
     setData(newState);
   }
@@ -59,9 +71,19 @@ function CreateOrder(props) {
 
   async function sendOrder() {
     try {
-      await axios.post("http://localhost:3000/orders/", data.commandData);
+      if (!data.commandData.usernameOrder) {
+        return toast.error("Tu as oublié ton pseudo...", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
 
-      setRedirect(true);
+      await axios.post("http://localhost:3000/orders/", data.commandData);
 
       toast("Commande passée 🍹 !", {
         position: "top-right",
@@ -72,6 +94,7 @@ function CreateOrder(props) {
         draggable: true,
         progress: undefined,
       });
+      setRedirect(true);
     } catch (error) {
       toast("Commande non passée 🍹", {
         position: "top-right",
@@ -87,7 +110,6 @@ function CreateOrder(props) {
 
   if (redirect) return <Navigate to="/cocktails"></Navigate>;
 
-
   return (
     <React.Fragment>
       <section>
@@ -97,7 +119,13 @@ function CreateOrder(props) {
             <h1>Passe ta commande chacal</h1>
           </div>
           <div className="section__username">
-            <input type="text" placeholder="Pseudo" className=" mt-3 mb-5" data-name="usernameOrder" onChange={changeInput}></input>
+            <input
+              type="text"
+              placeholder="Pseudo"
+              className=" mt-3 mb-5"
+              data-name="usernameOrder"
+              onChange={changeInput}
+            ></input>
           </div>
           <div className="section__table--cocktails">
             <table className="table table-striped">
@@ -108,20 +136,23 @@ function CreateOrder(props) {
                 </tr>
               </thead>
               <tbody>
-                  {data.cocktails.map((cocktail, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <Link to={`/cocktails/${cocktail._id}`}>
-                            {cocktail.name}
-                          </Link>
-                        </td>
-                        <td>
-                          <input type="number" onBlur={(e) => changeInput(e, cocktail)}></input>
-                        </td>
-                      </tr>
-                    )
-                  })}
+                {data.cocktails.map((cocktail, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>
+                        <Link to={`/cocktails/${cocktail._id}`}>
+                          {cocktail.name}
+                        </Link>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          onBlur={(e) => changeInput(e, cocktail)}
+                        ></input>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -137,5 +168,3 @@ function CreateOrder(props) {
 const mapStateToProps = (state) => ({ cocktail: state.cocktails });
 
 export default connect(mapStateToProps, null)(CreateOrder);
-
-// export default CreateOrder;
