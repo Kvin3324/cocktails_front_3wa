@@ -8,7 +8,8 @@ import variables  from './variables';
 import SignUpSpace from './components/SignupSpace';
 import Cocktails from './components/Cocktails/Cocktails';
 import AboutCocktail from './components/Cocktails/AboutCocktail';
-import { ToastContainer, toast } from 'react-toastify';
+import CreateOrder from './components/Orders/CreateOrder';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -32,6 +33,7 @@ function App() {
             <Route exact path='/inscription' element={<SignUpSpace />}></Route>
             <Route exact path='/cocktails' element={<Cocktails />}></Route>
             <Route exact path='/cocktails/:id' element={<AboutCocktail></AboutCocktail>}></Route>
+            <Route exact path='/create-order' element={<CreateOrder/>}></Route>
           </Routes>
           </>
         </ThemeProvider>
