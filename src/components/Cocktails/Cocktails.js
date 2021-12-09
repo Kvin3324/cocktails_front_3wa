@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import Header from "../Header/Header";
 import CocktailsStyled from "../../style/CocktailsStyled.style";
 import Modal from "../Modal/Modal";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import ModalCocktail from "../Modal/ModalCocktail";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -152,6 +152,14 @@ function Cocktails(props) {
         <CocktailsStyled className="container-d-fluid col-12">
           <div className="section__title">
             <h2>Carte des cocktails</h2>
+            <button
+              type="button"
+              className="section__title--btn btn--order"
+            >
+              <Link to="/create-order">
+                Passe ta commande 🍹
+              </Link>
+            </button>
             <button
               type="button"
               className="section__title--btn"
