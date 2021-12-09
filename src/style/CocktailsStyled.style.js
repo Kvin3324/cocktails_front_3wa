@@ -13,7 +13,13 @@ const CocktailsStyled = styled(GlobalContainer)`
     border: 1px solid ${props => props.theme.colorBtn};
     padding: 10px;
     border-radius: 5px;
+
+    a {
+      text-decoration: none;
+      color: ${props => props.theme.colorPrincipal};
+    }
   }
+
 }
 
 @media screen and (max-width: 766px) {
